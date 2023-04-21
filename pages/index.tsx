@@ -1,5 +1,5 @@
 import getConfig from 'next/config';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React, { MouseEvent } from 'react';
 
 
@@ -40,9 +40,10 @@ const Home = () => {
   };
 
   return (
-    <div className='bg-[#2C3333] h-screen relative overflow-hidden'>
+    <div className='bg-[#2C3333] h-auto relative'>
       <div className='flex'>
-        <div className='w-1/4 h-screen'>
+        <div className='h-screen w-1/4'></div>
+        <div className='w-1/4 h-screen fixed'>
           <div className='bg-[#2E4F4F] h-[70%] font-[Montserrat-Medium] text-white text-[50px] pt-[10px]'>
             <div className='h-1/5 flex justify-center' style={{ filter: 'drop-shadow(0px 5px 1px rgba(0, 0, 0, 0.25))' }}>History</div>
             <div className='h-4/5 mt-[-10px]'>
@@ -53,8 +54,8 @@ const Home = () => {
               ))}
             </div>
           </div>
-          <div className='h-[5px]'></div>
-          <div className='bg-[#2E4F4F] h-[30%] font-[Montserrat-Medium] text-white text-[50px] pt-[10px]'>
+          <div className='h-[0.5%]'></div>
+          <div className='bg-[#2E4F4F] h-[29.5%] font-[Montserrat-Medium] text-white text-[50px] pt-[10px]'>
             <span className='flex justify-center' style={{ filter: 'drop-shadow(0px 5px 1px rgba(0, 0, 0, 0.25))' }}>Algorithm</span>
             <div className="pl-[60px]">
               <div className="flex mt-[20px]">
@@ -69,7 +70,7 @@ const Home = () => {
           </div>
         </div>
         <div className='w-3/4 relative'>
-          <div className='messages-container h-full mt-[50px]'>
+          <div className='messages-container h-auto mt-[50px] mb-[100px] right-0'>
           {messages.map((message, index) => (
             <div>
               <div className='text-right'>
@@ -85,7 +86,7 @@ const Home = () => {
             </div>
           ))}
           </div>
-          <form onSubmit={handleSubmit} className='input-container absolute bottom-0 left-0 w-full'>
+          <form onSubmit={handleSubmit} className='input-container fixed bottom-0 right-0 w-3/4'>
             <div className='flex'>
               <input
                 type='text'
