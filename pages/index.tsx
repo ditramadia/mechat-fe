@@ -1,6 +1,7 @@
 import getConfig from 'next/config';
 import { useState, useEffect } from 'react';
 import React, { MouseEvent } from 'react';
+import profile from '@src/assets/images/profile.png'
 
 
 const { publicRuntimeConfig } = getConfig();
@@ -76,12 +77,15 @@ const Home = () => {
               <div className='text-right'>
                 <div key={index} className='inline-block bg-[#569DAA] py-2 px-[25px] rounded-[20px] my-[10px] mx-[50px]' style={{ filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, 0.25))' }}>
                   {message}
-                </div> 
+                </div>
               </div>
               <div className='block'>
-                <div key={index} className='inline-block bg-[#608C8C] py-2 px-[25px] rounded-[20px] my-[10px] mx-[50px]' style={{ filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, 0.25))' }}>
-                  iya sumpah gangerti lagi gua anjg
-                </div> 
+                <div className='flex items-center'>
+                  <img src={profile.src} className='w-[30px] h-[30px] ml-[20px]' />
+                  <div key={index} className='inline-block bg-[#608C8C] py-2 px-[25px] rounded-[20px] my-[10px] ml-[25px] mr-[50px]' style={{ filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, 0.25))' }}>
+                    iya sumpah gangerti lagi gua anjg
+                  </div> 
+                </div>
               </div>
             </div>
           ))}
