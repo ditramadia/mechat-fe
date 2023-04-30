@@ -79,7 +79,7 @@ const Home = () => {
                 </div> 
               </div>
               <div className='block'>
-                <div key={index} className='inline-block bg-[#569DAA] py-2 px-[25px] rounded-[20px] my-[10px] mx-[50px]' style={{ filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, 0.25))' }}>
+                <div key={index} className='inline-block bg-[#608C8C] py-2 px-[25px] rounded-[20px] my-[10px] mx-[50px]' style={{ filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, 0.25))' }}>
                   iya sumpah gangerti lagi gua anjg
                 </div> 
               </div>
