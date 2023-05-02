@@ -69,4 +69,13 @@
     font-family: 'Montserrat-Medium';
     src: url('../assets/fonts/Montserrat-Medium.ttf');
   }
+
+  @font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../assets/fonts/Montserrat-Bold.ttf');
+  }
+
+  .history-container::-webkit-scrollbar {
+    display: none;
+  }
 }
