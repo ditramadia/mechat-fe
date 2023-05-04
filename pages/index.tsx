@@ -98,10 +98,9 @@ const Home = () => {
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
-      <div className='w-1/5 h-full flex flex-col justify-between'></div>
       {/* Sidebar */}
       <div
-        className="bg-[#049c63] w-1/5 h-full flex fixed flex-col justify-between"
+        className="bg-[#049c63] w-1/5 h-full flex flex-col justify-between"
         style={{
           filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))'
         }}>
@@ -174,12 +173,12 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between relative">
-        <div className="w-[800px] flex flex-col gap-10 mx-auto">
-          {/* Message Section */}
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[94px] pb-[100px] px-[400px] justify-between relative">
+        {/* Message Section */}
+        <div className="max-w-[700px] w-full min-w-[600px] flex flex-col gap-10 mx-auto">
           {data.messages.map((message, index) => (
             <div key={index}
-              className={`flex flex-row ${
+              className={`flex flex-row w-full ${
                 index % 2 === 0 ? 'justify-end' : 'justify-start'
               }`}>
               <div
@@ -193,7 +192,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="mx-[100px] w-4/5 h-[48px] mt-[50px] fixed bottom-10"
+          className="w-4/5 left-[20%] right-0 h-[48px] mt-[50px] fixed bottom-20 px-[100px]"
           action=""
           onSubmit={handleSubmit}>
           <input
@@ -201,7 +200,7 @@ const Home = () => {
             value={inputText}
             onChange={handleInput}
             placeholder="Ask a question ..."
-            className="bg-[#fefefe] w-4/5 h-full border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
+            className="bg-[#fefefe] w-full h-[48px] text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
             style={{
               filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))'
             }}
