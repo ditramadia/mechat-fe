@@ -173,12 +173,12 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between relative bg-red-500">
-        <div className="w-[800px] flex flex-col gap-10 mx-auto">
-          {/* Message Section */}
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[94px] pb-[100px] px-[400px] overflow-y-scroll justify-between relative">
+        {/* Message Section */}
+        <div className="max-w-[700px] w-full min-w-[600px] flex flex-col gap-10 mx-auto">
           {data.messages.map((message, index) => (
             <div key={index}
-              className={`flex flex-row ${
+              className={`flex flex-row w-full ${
                 index % 2 === 0 ? 'justify-end' : 'justify-start'
               }`}>
               <div
@@ -192,7 +192,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="w-[800px] h-[48px] mx-auto mt-[50px] fixed bottom-10 left-1/2"
+          className="max-w-[710px] w-full min-w-[600px] h-[48px] mx-auto mt-[50px] fixed bottom-20"
           action=""
           onSubmit={handleSubmit}>
           <input
@@ -200,7 +200,7 @@ const Home = () => {
             value={inputText}
             onChange={handleInput}
             placeholder="Ask a question ..."
-            className="bg-[#fefefe] w-full h-full text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
+            className="bg-[#fefefe] w-full h-[48px] text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
             style={{
               filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))'
             }}
