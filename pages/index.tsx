@@ -12,7 +12,8 @@ const { name } = publicRuntimeConfig.site;
 const Home = () => {
   const [isKMP, setIsKMP] = useState(true);
   const [inputText, setInputText] = useState('');
-  const [data, setData] = useState(Record[Record.length - 1]);
+  const [conversations, setConversations] = useState(Record);
+  const [data, setData] = useState(conversations[conversations.length - 1]);
   const [scrollButton, setScrollButton] = useState(false);
   const [newChat, setNewChat] = useState(false);
   const chatBoxRef = useRef(null);
@@ -42,16 +43,28 @@ const Home = () => {
 
   const handleNewChat = () => {
     setNewChat(true);
-    Record.push({
-      id: Record.length,
+    conversations.push({
+      id: conversations.length,
       messages: [],
     });
-    setData(Record[Record.length - 1]);
+    setData(conversations[conversations.length - 1]);
     // dihandle di backend
   };
 
   const scrollToBottom = () => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }
+
+  const deleteConversation = (id: number) => {
+    if (conversations.length > 1) {
+      const newConversations = conversations.filter((conversation, idx) => idx !== id);
+      setConversations(newConversations);
+      if (id == 0) {
+        setData(conversations[0]);  
+      } else {
+        setData(conversations[id - 1]);
+      }
+    }
   }
 
   return (
@@ -68,22 +81,27 @@ const Home = () => {
             History
           </h2>
           <div className="history-container w-full h-[320px] mt-5 flex-col overflow-y-scroll">
-            {Record.map((conversation, index) => (
-              <button
-                onClick={() => {
-                  setData(Record[conversation.id]);
-                  console.log(conversation.id, data.id);
-                }}
-                key={conversation.id}
-                className={`${
-                  data.id == index
-                    ? 'border-[#f3f3f3] bg-[#f3f3f3] text-[#049c63]'
-                    : 'border-[#049c63] bg-[#049c63] text-[#f3f3f3]'
-                } h-[38px] overflow-hidden rounded-[8px] py-2 px-5 my-3 mx-auto w-10/12 cursor-default text-left ml-7 hover:bg-[#f3f3f3] hover:text-[#049c63]`}>
-                {conversation.messages.length == 0
-                  ? 'New chat'
-                  : conversation.messages[0]}
-              </button>
+            {conversations.map((conversation, index) => (
+              <div className={`${
+                data.id == index
+                  ? 'border-[#f3f3f3] bg-[#f3f3f3] text-[#049c63]'
+                  : 'border-[#049c63] bg-[#049c63] text-[#f3f3f3]'
+              } h-[38px] overflow-hidden rounded-[8px] my-3 mx-auto w-10/12 cursor-default ml-7 hover:bg-[#f3f3f3] hover:text-[#049c63] relative group`}>
+                <button className='rounded-[8px] w-full h-full text-left py-2 px-5'
+                  onClick={() => {
+                    setData(conversations[conversation.id]);
+                    console.log(conversation.id, data.id);
+                  }}
+                  key={conversation.id}>
+                  {conversation.messages.length == 0
+                    ? 'New chat'
+                    : conversation.messages[0]}
+                </button>
+                <button onClick={() => {
+                }} className={`${data.id == index ? "block" : "hidden"} absolute right-4 top-[7px] group-hover:block`}>
+                  ✕
+                </button>
+              </div>
             ))}
           </div>
         </div>
