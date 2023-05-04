@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import getConfig from 'next/config'
 
 // import conversations from './conversation.JSON'
-
-const { publicRuntimeConfig } = getConfig()
-const apiUrl = publicRuntimeConfig.api.url
 
 const conversations: Array<{ id: number, messages: string[] }> = [
   {
@@ -16,28 +12,26 @@ const conversations: Array<{ id: number, messages: string[] }> = [
 const Home = () => {
   const [isKMP, setIsKMP] = useState(true)
   const [inputText, setInputText] = useState('')
-  //   const [conversations, setConversations] = useState(Record)
+  // const [conversations, setConversations] = useState(conversations)
   const [data, setData] = useState(conversations[conversations.length - 1])
   const [scrollButton, setScrollButton] = useState(false)
   const [newChat, setNewChat] = useState(false)
-  const [response, setResponse] = useState('')
   const chatBoxRef = useRef<HTMLDivElement>(null)
 
   const fetchResponse = async () => {
-    console.log('test')
     const reqBody = {
       expr: inputText,
       alg: isKMP ? 'KMP' : 'BM'
     }
-    const response = await fetch(apiUrl + '/question', {
+    const responseData = await fetch('https://mechat.up.railway.app/api/question', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(reqBody)
     })
-    const data = await response.json()
-    setResponse(data.result)
+    const dataServer = await responseData.json()
+    data.messages.push(dataServer.result)
   }
 
   useEffect(() => {
@@ -55,15 +49,13 @@ const Home = () => {
     setInputText((event.target as HTMLInputElement).value)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     data.messages.push(inputText)
     try {
-      void fetchResponse()
+      await fetchResponse()
     } catch (error) {
-      console.log(error)
     }
-    data.messages.push(response)
     setInputText('')
     setScrollButton(true)
   }
@@ -75,7 +67,6 @@ const Home = () => {
       messages: []
     })
     setData(conversations[conversations.length - 1])
-    // dihandle di backend
   }
 
   const scrollToBottom = () => {
