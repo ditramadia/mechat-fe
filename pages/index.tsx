@@ -1,97 +1,98 @@
-import React, { MouseEvent, useRef } from 'react';
-import { useState, useEffect } from 'react';
-import getConfig from 'next/config';
-import profile from '@src/assets/images/profile.png';
-import { ReactChild, ReactFragment, ReactPortal } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
+import getConfig from 'next/config'
 
-import Record from './conversation.JSON';
+// import conversations from './conversation.JSON'
 
-const { publicRuntimeConfig } = getConfig();
-const { name } = publicRuntimeConfig.site;
-const apiUrl = publicRuntimeConfig.api.url;
+const { publicRuntimeConfig } = getConfig()
+const apiUrl = publicRuntimeConfig.api.url
 
+const conversations = [
+  {
+    id: 0,
+    messages: []
+  }
+]
 
 const Home = () => {
-  const [isKMP, setIsKMP] = useState(true);
-  const [inputText, setInputText] = useState('');
-  const [conversations, setConversations] = useState(Record);
-  const [data, setData] = useState(conversations[conversations.length - 1]);
-  const [scrollButton, setScrollButton] = useState(false);
-  const [newChat, setNewChat] = useState(false);
-  const [response, setResponse] = useState('');
-  const chatBoxRef = useRef(null);
-  
+  const [isKMP, setIsKMP] = useState(true)
+  const [inputText, setInputText] = useState('')
+  //   const [conversations, setConversations] = useState(Record)
+  const [data, setData] = useState(conversations[conversations.length - 1])
+  const [scrollButton, setScrollButton] = useState(false)
+  const [newChat, setNewChat] = useState(false)
+  const [response, setResponse] = useState('')
+  const chatBoxRef = useRef(null)
+
   const fetchResponse = async () => {
-    console.log("test");
+    console.log('test')
     const reqBody = {
       expr: inputText,
-      alg: isKMP ? 'KMP' : 'BM',
+      alg: isKMP ? 'KMP' : 'BM'
     }
     const response = await fetch(apiUrl + '/question', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(reqBody),
-    });
-    const data = await response.json();
-    setResponse(data.result);
-  };
-  
+      body: JSON.stringify(reqBody)
+    })
+    const data = await response.json()
+    setResponse(data.result)
+  }
 
   useEffect(() => {
-    if(scrollButton){
-      scrollToBottom();
-      setScrollButton(false);
+    if (scrollButton) {
+      scrollToBottom()
+      setScrollButton(false)
     }
-  }, [scrollButton]);
+  }, [scrollButton])
 
   useEffect(() => {
-    setNewChat(false);
+    setNewChat(false)
   }, [newChat])
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText((event.target as HTMLInputElement).value);
-  };
+    setInputText((event.target as HTMLInputElement).value)
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    data.messages.push(inputText);
+    event.preventDefault()
+    data.messages.push(inputText)
     try {
-      fetchResponse();
+      void fetchResponse()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-    data.messages.push(response);
-    setInputText('');
-    setScrollButton(true);
-  };
+    data.messages.push(response)
+    setInputText('')
+    setScrollButton(true)
+  }
 
   const handleNewChat = () => {
-    setNewChat(true);
+    setNewChat(true)
     conversations.push({
       id: conversations.length,
-      messages: [],
-    });
-    setData(conversations[conversations.length - 1]);
+      messages: []
+    })
+    setData(conversations[conversations.length - 1])
     // dihandle di backend
-  };
+  }
 
   const scrollToBottom = () => {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
   }
 
-  const deleteConversation = (id: number) => {
-    if (conversations.length > 1) {
-      const newConversations = conversations.filter((conversation, idx) => idx !== id);
-      setConversations(newConversations);
-      if (id == 0) {
-        setData(conversations[0]);  
-      } else {
-        setData(conversations[id - 1]);
-      }
-    }
-  }
+  //   const deleteConversation = (id: number) => {
+  //     if (conversations.length > 1) {
+  //       const newConversations = conversations.filter((conversation, idx) => idx !== id)
+  //       setConversations(newConversations)
+  //       if (id == 0) {
+  //         setData(conversations[0])
+  //       } else {
+  //         setData(conversations[id - 1])
+  //       }
+  //     }
+  //   }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
@@ -99,7 +100,7 @@ const Home = () => {
       <div
         className="bg-[#049c63] w-1/5 h-full flex flex-col justify-between"
         style={{
-          filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))',
+          filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))'
         }}>
         {/* History */}
         <div className="w-full h-[400px] flex-col py-[20px] overflow-hidden">
@@ -107,24 +108,24 @@ const Home = () => {
             History
           </h2>
           <div className="history-container w-full h-[320px] mt-5 flex-col overflow-y-scroll">
-            {conversations.map((conversation, index) => (
-              <div className={`${
-                data.id == index
+            {conversations.map((conversation: { id: React.Key, messages: string[] }, index: number) => (
+              <div key={index} className={`${
+                data.id === index
                   ? 'border-[#f3f3f3] bg-[#f3f3f3] text-[#049c63]'
                   : 'border-[#049c63] bg-[#049c63] text-[#f3f3f3]'
               } h-[38px] overflow-hidden rounded-[8px] my-3 mx-auto w-10/12 cursor-default ml-7 hover:bg-[#f3f3f3] hover:text-[#049c63] relative group`}>
                 <button className='rounded-[8px] w-full h-full text-left py-2 px-5'
                   onClick={() => {
-                    setData(conversations[conversation.id]);
-                    console.log(conversation.id, data.id);
+                    setData(conversations[conversation.id])
+                    console.log(conversation.id, data.id)
                   }}
                   key={conversation.id}>
-                  {conversation.messages.length == 0
+                  {conversation.messages.length === 0
                     ? 'New chat'
                     : conversation.messages[0]}
                 </button>
                 <button onClick={() => {
-                }} className={`${data.id == index ? "block" : "hidden"} absolute right-4 top-[7px] group-hover:block`}>
+                }} className={`${data.id === index ? 'block' : 'hidden'} absolute right-4 top-[7px] group-hover:block`}>
                   ✕
                 </button>
               </div>
@@ -173,14 +174,14 @@ const Home = () => {
       <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between">
         <div className="w-[800px] flex flex-col gap-10 mx-auto">
           {/* Message Section */}
-          {data.messages.map((message: null | undefined, index) => (
-            <div
+          {data.messages.map((message: null | undefined, index: number) => (
+            <div key={index}
               className={`flex flex-row ${
-                index % 2 == 0 ? 'justify-end' : 'justify-start'
+                index % 2 === 0 ? 'justify-end' : 'justify-start'
               }`}>
               <div
                 className={`${
-                  index % 2 == 0 ? 'bg-[#22bf30]' : 'bg-[#fefefe]'
+                  index % 2 === 0 ? 'bg-[#22bf30]' : 'bg-[#fefefe]'
                 } w-fit h-fit px-[18px] py-[12px] rounded-[8px] max-w-[600px] whitespace-normal overflow-hidden`}>
                 {message}
               </div>
@@ -199,13 +200,13 @@ const Home = () => {
             placeholder="Ask a question ..."
             className="bg-[#fefefe] w-full h-full text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
             style={{
-              filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))',
+              filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))'
             }}
           />
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
