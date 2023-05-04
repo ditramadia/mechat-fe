@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useRef } from 'react';
 import { useState, useEffect } from 'react';
 import getConfig from 'next/config';
 import profile from '@src/assets/images/profile.png';
@@ -13,6 +13,15 @@ const Home = () => {
   const [isKMP, setIsKMP] = useState(true);
   const [inputText, setInputText] = useState('');
   const [data, setData] = useState(Record[Record.length - 1]);
+  const [scrollButton, setScrollButton] = useState(false);
+  const chatBoxRef = useRef(null);
+
+  useEffect(() => {
+    if(scrollButton){
+      scrollToBottom();
+      setScrollButton(false);
+    }
+  }, [scrollButton]);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText((event.target as HTMLInputElement).value);
@@ -26,6 +35,7 @@ const Home = () => {
     setData(newData);
     Record.push(newData);
     setInputText('');
+    setScrollButton(true);
     // dihandle di backend
   };
 
@@ -37,6 +47,10 @@ const Home = () => {
     // dihandle di backend
   };
 
+  const scrollToBottom = () => {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }
+
   return (
     <div className="h-screen w-screen flex overflow-hidden">
       {/* Sidebar */}
@@ -46,11 +60,11 @@ const Home = () => {
           filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))',
         }}>
         {/* History */}
-        <div className="w-full h-[400px] flex-col py-[20px]">
+        <div className="w-full h-[400px] flex-col py-[20px] overflow-hidden">
           <h2 className="text-white font-[Montserrat-Bold] text-[24px] text-center">
             History
           </h2>
-          <div className="history-container w-full h-[570px] flex-col overflow-y-scroll">
+          <div className="history-container w-full h-[320px] mt-5 flex-col overflow-y-scroll">
             {Record.map((conversation, index) => (
               <button
                 onClick={() => {
@@ -62,7 +76,7 @@ const Home = () => {
                   data.id == index
                     ? 'border-[#f3f3f3] bg-[#f3f3f3] text-[#049c63]'
                     : 'border-[#049c63] bg-[#049c63] text-[#f3f3f3]'
-                } h-[38px] overflow-hidden rounded-[8px] py-2 px-5 my-3 mx-auto w-10/12 cursor-default text-left ml-7`}>
+                } h-[38px] overflow-hidden rounded-[8px] py-2 px-5 my-3 mx-auto w-10/12 cursor-default text-left ml-7 hover:bg-[#f3f3f3] hover:text-[#049c63]`}>
                 {conversation.messages.length == 0
                   ? 'New chat'
                   : conversation.messages[0]}
@@ -109,7 +123,7 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[70px] overflow-y-scroll justify-between">
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between">
         <div className="w-[800px] flex flex-col gap-10 mx-auto">
           {/* Message Section */}
           {data.messages.map((message: null | undefined, index) => (
@@ -128,7 +142,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="w-[800px] h-[48px] mx-auto mt-[50px]"
+          className="w-[800px] h-[48px] mx-auto mt-[50px] fixed bottom-10 left-1/3"
           action=""
           onSubmit={handleSubmit}>
           <input
@@ -137,6 +151,9 @@ const Home = () => {
             onChange={handleInput}
             placeholder="Ask a question ..."
             className="bg-[#fefefe] w-full h-full text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
+            style={{
+              filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))',
+            }}
           />
         </form>
       </div>
