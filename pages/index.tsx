@@ -98,9 +98,10 @@ const Home = () => {
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
+      <div className='w-1/5 h-full flex flex-col justify-between'></div>
       {/* Sidebar */}
       <div
-        className="bg-[#049c63] w-1/5 h-full flex flex-col justify-between"
+        className="bg-[#049c63] w-1/5 h-full flex fixed flex-col justify-between"
         style={{
           filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))'
         }}>
@@ -173,7 +174,7 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between relative bg-red-500">
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between relative">
         <div className="w-[800px] flex flex-col gap-10 mx-auto">
           {/* Message Section */}
           {data.messages.map((message, index) => (
@@ -192,7 +193,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="w-[800px] h-[48px] mx-auto mt-[50px] fixed bottom-10 left-1/2"
+          className="mx-[100px] w-4/5 h-[48px] mt-[50px] fixed bottom-10"
           action=""
           onSubmit={handleSubmit}>
           <input
@@ -200,7 +201,7 @@ const Home = () => {
             value={inputText}
             onChange={handleInput}
             placeholder="Ask a question ..."
-            className="bg-[#fefefe] w-full h-full text-black border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
+            className="bg-[#fefefe] w-4/5 h-full border-0 border-transparent ring-0 focus:border-transparent focus:ring-0"
             style={{
               filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.2))'
             }}
