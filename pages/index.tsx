@@ -4,7 +4,7 @@ import getConfig from 'next/config';
 import profile from '@src/assets/images/profile.png';
 import { ReactChild, ReactFragment, ReactPortal } from 'react';
 
-import Record from './database.JSON';
+import Record from './conversation.JSON';
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
@@ -14,6 +14,7 @@ const Home = () => {
   const [inputText, setInputText] = useState('');
   const [data, setData] = useState(Record[Record.length - 1]);
   const [scrollButton, setScrollButton] = useState(false);
+  const [newChat, setNewChat] = useState(false);
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
@@ -23,27 +24,29 @@ const Home = () => {
     }
   }, [scrollButton]);
 
+  useEffect(() => {
+    setNewChat(false);
+  }, [newChat])
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText((event.target as HTMLInputElement).value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    var newData = data;
-    newData.messages.push(inputText);
-    newData.messages.push('Pertanyaan tidak ada di database');
-    setData(newData);
-    Record.push(newData);
+    data.messages.push(inputText);
+    data.messages.push('Pertanyaan tidak ada di database');
     setInputText('');
     setScrollButton(true);
-    // dihandle di backend
   };
 
   const handleNewChat = () => {
+    setNewChat(true);
     Record.push({
       id: Record.length,
       messages: [],
     });
+    setData(Record[Record.length - 1]);
     // dihandle di backend
   };
 
@@ -116,7 +119,7 @@ const Home = () => {
                   ? 'bg-[#f3f3f3] text-[#049c63]'
                   : 'bg-[#049c63] text-[#f3f3f3]'
               } border-[#f3f3f3] border-2 rounded-[8px] py-2 px-5 my-3 mx-auto w-10/12 text-center cursor-pointer`}>
-              BM
+              Boyer-Moore
             </button>
           </div>
         </div>
