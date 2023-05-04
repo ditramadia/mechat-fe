@@ -6,7 +6,7 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig } = getConfig()
 const apiUrl = publicRuntimeConfig.api.url
 
-const conversations = [
+const conversations: Array<{ id: number, messages: string[] }> = [
   {
     id: 0,
     messages: []
@@ -21,7 +21,7 @@ const Home = () => {
   const [scrollButton, setScrollButton] = useState(false)
   const [newChat, setNewChat] = useState(false)
   const [response, setResponse] = useState('')
-  const chatBoxRef = useRef(null)
+  const chatBoxRef = useRef<HTMLDivElement>(null)
 
   const fetchResponse = async () => {
     console.log('test')
@@ -79,7 +79,9 @@ const Home = () => {
   }
 
   const scrollToBottom = () => {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+    }
   }
 
   //   const deleteConversation = (id: number) => {
@@ -116,7 +118,7 @@ const Home = () => {
               } h-[38px] overflow-hidden rounded-[8px] my-3 mx-auto w-10/12 cursor-default ml-7 hover:bg-[#f3f3f3] hover:text-[#049c63] relative group`}>
                 <button className='rounded-[8px] w-full h-full text-left py-2 px-5'
                   onClick={() => {
-                    setData(conversations[conversation.id])
+                    setData(conversations[parseInt(conversation.id.toString())])
                     console.log(conversation.id, data.id)
                   }}
                   key={conversation.id}>
@@ -171,10 +173,10 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between">
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[100px] pb-[120px] overflow-y-scroll justify-between relative bg-red-500">
         <div className="w-[800px] flex flex-col gap-10 mx-auto">
           {/* Message Section */}
-          {data.messages.map((message: null | undefined, index: number) => (
+          {data.messages.map((message, index) => (
             <div key={index}
               className={`flex flex-row ${
                 index % 2 === 0 ? 'justify-end' : 'justify-start'
@@ -190,7 +192,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="w-[800px] h-[48px] mx-auto mt-[50px] fixed bottom-10 left-1/3"
+          className="w-[800px] h-[48px] mx-auto mt-[50px] fixed bottom-10 left-1/2"
           action=""
           onSubmit={handleSubmit}>
           <input

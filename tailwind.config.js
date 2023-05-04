@@ -1,7 +1,7 @@
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}'
   ],
   darkMode: 'class',
   theme: {
@@ -33,14 +33,14 @@ module.exports = {
         pink200: '#FEE9E6',
         pink300: '#E28281',
         pink400: '#C86564'
-      },      
-      fontFamily: {
-        archivo: ["Archivo", "sans-serif"],
-        varela: ["Varela-Round", "sans-serif"],
-        helvatica: ["Helvatica", "sans-serif"],
       },
-    },
+      fontFamily: {
+        archivo: ['Archivo', 'sans-serif'],
+        varela: ['Varela-Round', 'sans-serif'],
+        helvatica: ['Helvatica', 'sans-serif']
+      }
+    }
   },
   variants: {},
-  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
-};
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')]
+}
