@@ -51,13 +51,15 @@ const Home = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    data.messages.push(inputText)
-    try {
-      await fetchResponse()
-    } catch (error) {
+    if (inputText.trim() !== '') {
+      data.messages.push(inputText)
+      try {
+        await fetchResponse()
+      } catch (error) {
+      }
+      setInputText('')
+      setScrollButton(true)
     }
-    setInputText('')
-    setScrollButton(true)
   }
 
   const handleNewChat = () => {
