@@ -46,7 +46,7 @@ const Home = () => {
           filter: 'drop-shadow(0px 5px 6px rgba(0, 0, 0, 0.5))',
         }}>
         {/* History */}
-        <div className="w-full flex-col py-[20px]">
+        <div className="w-full h-[400px] flex-col py-[20px]">
           <h2 className="text-white font-[Montserrat-Bold] text-[24px] text-center">
             History
           </h2>
