@@ -10,6 +10,9 @@ module.exports = {
       description: 'Next.js + Tailwind CSS template',
       socialPreview: '/images/preview.png',
     },
+    api: {
+      url: 'mechat.up.railway.app/api',
+    },
   },
   swcMinify: true,
   i18n: {
@@ -17,3 +20,4 @@ module.exports = {
     defaultLocale: 'en-US',
   },
 };
+

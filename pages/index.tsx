@@ -8,6 +8,8 @@ import Record from './conversation.JSON';
 
 const { publicRuntimeConfig } = getConfig();
 const { name } = publicRuntimeConfig.site;
+const apiUrl = publicRuntimeConfig.api.url;
+
 
 const Home = () => {
   const [isKMP, setIsKMP] = useState(true);
@@ -16,7 +18,26 @@ const Home = () => {
   const [data, setData] = useState(conversations[conversations.length - 1]);
   const [scrollButton, setScrollButton] = useState(false);
   const [newChat, setNewChat] = useState(false);
+  const [response, setResponse] = useState('');
   const chatBoxRef = useRef(null);
+  
+  const fetchResponse = async () => {
+    console.log("test");
+    const reqBody = {
+      expr: inputText,
+      alg: isKMP ? 'KMP' : 'BM',
+    }
+    const response = await fetch(apiUrl + '/question', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reqBody),
+    });
+    const data = await response.json();
+    setResponse(data.result);
+  };
+  
 
   useEffect(() => {
     if(scrollButton){
@@ -36,7 +57,12 @@ const Home = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     data.messages.push(inputText);
-    data.messages.push('Pertanyaan tidak ada di database');
+    try {
+      fetchResponse();
+    } catch (error) {
+      console.log(error);
+    }
+    data.messages.push(response);
     setInputText('');
     setScrollButton(true);
   };
