@@ -1,40 +1,66 @@
-# Wisuda April 2023 Frontend
+<!-- LOGO -->
+<br />
+<div align="center">
+  <a href="https://tubes3-13521019.vercel.app/">
+    <h3 align="center">TUGAS BESAR 3</h3>
+  </a>
 
-## Tech Stack
+  <p align="center">
+    IF2211 Strategi Algoritma
+    <br />
+    <br />
+    <a href="https://youtu.be/0Qbc4MPuchg"><strong>Demo »</strong></a>
+  </p>
+  <p align="center">
+    <a href="https://github.com/ditramadia/Tubes3_13521019_FE"><strong>Front End Repository »</strong></a>
+  </p>
+  <p align="center">
+    <a href="https://github.com/raditss/Tubes3_13521019_BE"><strong>Back End Repository »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 
-- [React](https://reactjs.org/)
-- [Next](https://nextjs.org/)
-- [Tailwind](https://tailwindcss.com/)
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Setup and Installation
+Tubes 3 of Design of Algorithms (IF2211). Chat Bot web based app using Knuth-Morris-Prat and Boyer-Moore algorithm
 
-1. Clone repo
-```
-git clone https://github.com/bernarduswillson/WisudaApril2023-frontend.git
-```
-2. Install dependencies
-```
-yarn
-```
-3. Start the app
-```
-yarn dev
-```
+### Specification
 
-## Branching and Commit Messages
+* Program is able to receive user's question
+* Program is able to calculate a given maths expression
+* Program is able to determine the day of a given date
+* Program is able to response to user's question
+* Program is able to add and remove query and response from database
 
-Setiap membuat branch baru harus ambil base dari `main`. Untuk penamaan commit dan branch mengikuti format berikut.
-Format branch: `<type>/<title>`
-Format commit: `<type>: <subject>`
-Penamaan menggunakan kebab case
+### Built With
 
-Untuk type mengikuti semantic berikut.
-- `feat`: (new feature for the user, not a new feature for build script)
-- `fix`: (bug fix for the user, not a fix to a build script)
-- `docs`: (changes to the documentation)
-- `style`: (formatting, missing semi colons, etc; no production code change)
-- `refactor`: (refactoring production code, eg. renaming a variable)
-- `test`: (adding missing tests, refactoring tests; no production code change)
-- `chore`: (updating grunt tasks etc; no production code change)
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+* ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+* 	![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+<br/>
+<br/>
 
-## Link
+<!-- GETTING STARTED -->
+## Getting Started
+
+  ```sh
+  https://tubes3-13521019.vercel.app/
+  ```
+<br/>
+<br/>
+
+<!-- AUTHOR -->
+### Authors
+
+| NIM | Name | Contribution |
+| :---: | :---: | :---: |
+| 13521019 | Ditra Rizqa Amadia | Front End
+| 13521021 | Bernardus Willson | Front End, Documentation
+| 13521022 | Raditya Naufal Abiyyu | Back End
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
