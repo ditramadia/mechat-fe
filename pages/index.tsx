@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from 'react'
 
 // import conversations from './conversation.JSON'
 
-const conversations: Array<{ id: number, messages: string[] }> = [
-  {
-    id: 0,
-    messages: []
-  }
-]
-
 const Home = () => {
+  const conversationsData: Array<{ id: number, messages: string[] }> = [
+    {
+      id: 0,
+      messages: []
+    }
+  ]
   const [isKMP, setIsKMP] = useState(true)
   const [inputText, setInputText] = useState('')
-  // const [conversations, setConversations] = useState(conversations)
+  const [conversations, setConversations] = useState(conversationsData)
   const [data, setData] = useState(conversations[conversations.length - 1])
   const [scrollButton, setScrollButton] = useState(false)
   const [newChat, setNewChat] = useState(false)
@@ -77,17 +76,17 @@ const Home = () => {
     }
   }
 
-  //   const deleteConversation = (id: number) => {
-  //     if (conversations.length > 1) {
-  //       const newConversations = conversations.filter((conversation, idx) => idx !== id)
-  //       setConversations(newConversations)
-  //       if (id == 0) {
-  //         setData(conversations[0])
-  //       } else {
-  //         setData(conversations[id - 1])
-  //       }
-  //     }
-  //   }
+  const deleteConversation = (id: number) => {
+    if (conversations.length > 1) {
+      const newConversations = conversations.filter((conversation, idx) => idx !== id)
+      setConversations(newConversations)
+      if (id === 0) {
+        setData(conversations[0])
+      } else {
+        setData(conversations[id - 1])
+      }
+    }
+  }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
@@ -120,6 +119,7 @@ const Home = () => {
                     : conversation.messages[0]}
                 </button>
                 <button onClick={() => {
+                  deleteConversation(index)
                 }} className={`${data.id === index ? 'block' : 'hidden'} absolute right-4 top-[7px] group-hover:block`}>
                   ✕
                 </button>
