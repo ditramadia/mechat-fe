@@ -166,9 +166,9 @@ const Home = () => {
       </div>
 
       {/* Chat Box */}
-      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[94px] pb-[100px] px-[400px] justify-between relative overflow-y-scroll">
+      <div ref={chatBoxRef} className="bg-[#ebebeb] w-4/5 h-full flex flex-col pt-[94px] pb-[100px] px-[150px] justify-between relative overflow-x-hidden">
         {/* Message Section */}
-        <div className="max-w-[700px] w-full min-w-[600px] pb-[100px] flex flex-col gap-10 mx-auto">
+        <div className="w-full pb-[100px] flex flex-col gap-10">
           {data.messages.map((message, index) => (
             <div key={index}
               className={`flex flex-row w-full ${
@@ -185,7 +185,7 @@ const Home = () => {
         </div>
         {/* Input Section */}
         <form
-          className="w-4/5 left-[20%] right-0 h-[48px] mt-[50px] fixed bottom-20 px-[100px]"
+          className="w-4/5 left-[20%] right-0 h-[48px] mt-[50px] fixed bottom-20 px-[200px]"
           action=""
           onSubmit={handleSubmit}>
           <input
