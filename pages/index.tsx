@@ -30,6 +30,7 @@ const Home = () => {
       body: JSON.stringify(reqBody)
     })
     const dataServer = await responseData.json()
+    console.log(dataServer)
     data.messages.push(dataServer.result)
   }
 
@@ -76,17 +77,17 @@ const Home = () => {
     }
   }
 
-  const deleteConversation = (id: number) => {
-    if (conversations.length > 1) {
-      const newConversations = conversations.filter((conversation, idx) => idx !== id)
-      setConversations(newConversations)
-      if (id === 0) {
-        setData(conversations[0])
-      } else {
-        setData(conversations[id - 1])
-      }
-    }
-  }
+  //   const deleteConversation = (id: number) => {
+  //     if (conversations.length > 1) {
+  //       const newConversations = conversations.filter((conversation, idx) => idx !== id)
+  //       setConversations(newConversations)
+  //       if (id === 0) {
+  //         setData(conversations[0])
+  //       } else {
+  //         setData(conversations[id - 1])
+  //       }
+  //     }
+  //   }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
@@ -119,7 +120,7 @@ const Home = () => {
                     : conversation.messages[0]}
                 </button>
                 <button onClick={() => {
-                  deleteConversation(index)
+                //   deleteConversation(index)
                 }} className={`${data.id === index ? 'block' : 'hidden'} absolute right-4 top-[7px] group-hover:block`}>
                   ✕
                 </button>
